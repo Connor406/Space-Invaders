@@ -4,18 +4,17 @@ import os
 import math
 import random
 
-#set up screen
+#screen
 wn = turtle.Screen()
 wn.bgcolor("black")
-wn.title("Space Guys!")
+wn.title("Space Invaders!")
 wn.bgpic("space.gif") 
 
-# Register the shapes
 turtle.register_shape("enemys.gif")
 turtle.register_shape("guns.gif")
 turtle.register_shape("bullets.gif")
 
-#Draw border
+#border
 border_pen = turtle.Turtle()
 border_pen.speed(0)
 border_pen.color("black")
@@ -28,10 +27,9 @@ for side in range(4):
 	border_pen.lt(90)
 border_pen.hideturtle()
 
-# Set the score to 0
 score = 0
 
-# Draw the score
+# Scoreboard
 score_pen = turtle.Turtle()
 score_pen.speed(0)
 score_pen.color("yellow")
@@ -41,7 +39,6 @@ scorestring = "Score: %s" % score
 score_pen.write(scorestring, False, align ="left", font = ("Arial", 14, "normal"))
 score_pen.hideturtle()
 
-# Create the player turtle
 player = turtle.Turtle()
 player.color("blue")
 player.shape("guns.gif")
@@ -52,12 +49,9 @@ player.setheading(90)
 
 playerspeed = 20
 
-# Choose number of enemies
 number_of_enemies = 5
-# Create an empty list of enemies
 enemies = []
 
-# Add enemies to the list
 for i in range(number_of_enemies):
     enemies.append(turtle.Turtle())
 
@@ -74,7 +68,7 @@ for enemy in enemies:
 enemyspeed = 3
 
 
-# Create the player's bullet
+# Player's bullet
 bullet = turtle.Turtle()
 bullet.color("yellow")
 bullet.shape("bullets.gif")
@@ -91,7 +85,7 @@ bulletspeed = 25
 # Fire - bullet is firing
 bulletstate = "ready"
 
-# Move the player left and right
+# Move the player
 def move_left():
     x = player.xcor()
     x -= playerspeed
@@ -107,11 +101,11 @@ def move_right():
     player.setx(x)
 
 def fire_bullet():
-    # Declare bulletstate as a global if it needs changed
+    # Declare bulletstate as a global
     global bulletstate
     if bulletstate == "ready": 
         bulletstate = "fire"
-        # Move the bullet to just above the player
+        # Move the bullet above the player
         x = player.xcor()
         y = player.ycor() + 10
         bullet.setposition(x, y)
@@ -124,7 +118,6 @@ def isCollision(t1, t2):
     else:
         return False
     
-# Create keyboard bindings
 turtle.listen()
 turtle.onkey(move_left, "Left")
 turtle.onkey(move_right, "Right")
@@ -188,7 +181,7 @@ while True:
     if isCollision(enemy, player):
         player.hideturtle()
         enemy.hideturtle()
-        print ("Game Over, Idiot.")
+        print ("Game Over")
         break
     
 
